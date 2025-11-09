@@ -7,4 +7,7 @@ export const colors = {
   textLight: '#000000', // Black text for light mode
   textDark: '#ffffff', // White text for dark mode
   buttonText: '#ffffff', // White text for buttons
+  white: '#ffffff',
+  gray: '#888888',
+  deepGreen: '#006400',
 };
