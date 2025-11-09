@@ -1,0 +1,35 @@
+suryadev-seeds-admin
+├── src
+│   ├── assets
+│   │   └── fonts
+│   ├── components
+│   │   ├── common
+│   │   │   ├── Button.tsx
+│   │   │   ├── Header.tsx
+│   │   │   └── TabBar.tsx
+│   │   ├── home
+│   │   ├── category
+│   │   └── orders
+│   ├── screens
+│   │   ├── HomeScreen.tsx
+│   │   ├── CategoryScreen.tsx
+│   │   ├── OrderScreen.tsx
+│   │   └── LoginScreen.tsx
+│   ├── navigation
+│   │   ├── AppNavigator.tsx
+│   │   └── TabNavigator.tsx
+│   ├── services
+│   │   └── firebase.ts
+│   ├── constants
+│   │   ├── colors.ts
+│   │   └── theme.ts
+│   ├── types
+│   │   └── index.ts
+│   ├── utils
+│   │   └── helpers.ts
+│   └── App.tsx
+├── app.json
+├── package.json
+├── tsconfig.json
+├── babel.config.js
+└── README.md
