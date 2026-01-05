@@ -1,24 +1,43 @@
-// filepath: /suryadev-seeds-admin/suryadev-seeds-admin/src/services/firebase.ts
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+// src/services/firebase.ts
+import { initializeApp, getApps, getApp } from 'firebase/app';
+// Import Auth functions
+import { 
+  initializeAuth, 
+  getAuth, 
+  getReactNativePersistence 
+} from 'firebase/auth'; 
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getFirestore, collection, initializeFirestore, persistentLocalCache } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBbFlkhQFfwoIN7cOoNKCbSa2zHOBwmNg4",
+  authDomain: "sds-admin-app.firebaseapp.com",
+  projectId: "sds-admin-app",
+  storageBucket: "sds-admin-app.firebasestorage.app",
+  messagingSenderId: "970781030120",
+  appId: "1:970781030120:web:6f47922685c438aea8bb5d"
 };
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+// 1. Initialize App (Prevent duplicate initialization)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
+// 2. Initialize Auth
+let auth;
+try {
+  // Try to initialize with persistence
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  });
+} catch (e) {
+  // If it fails (e.g. "Auth instance already exists"), retrieve the existing instance
+  auth = getAuth(app);
 }
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+// 3. Initialize Firestore
+const firestore = initializeFirestore(app, {
+  localCache: persistentLocalCache()
+});
 
-export { auth, firestore };
+const colRef = collection(firestore, "category");
+
+export { auth, firestore, colRef };

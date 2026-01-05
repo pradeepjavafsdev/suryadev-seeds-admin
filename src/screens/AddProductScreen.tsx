@@ -107,7 +107,7 @@ const AddProductScreen = () => {
       Alert.alert("Error", "Please upload a product image");
       return;
     }
-    // TODO: Implement Firebase upload
+
     console.log({ ...values, imageUri: image });
   };
 
