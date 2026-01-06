@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, User, Auth } from "firebase/auth";
 import { auth } from "./services/firebase"; // Adjust path if needed
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import AppNavigator from "./navigation/AppNavigator"; // Your main app with tabs
 import LoginScreen from "./screens/LoginScreen"; // The new login screen
@@ -14,7 +16,7 @@ export default function App() {
 
   // This hook listens for changes in Firebase auth state (login/logout)
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth as Auth, (currentUser) => {
       setUser(currentUser);
       if (initializing) {
         setInitializing(false);
@@ -35,14 +37,18 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      {user ? (
-        // If 'user' object exists, the user is signed in. Show the main app.
-        <AppNavigator />
-      ) : (
-        // If 'user' is null, the user is not signed in. Show the login screen.
-        <LoginScreen />
-      )}
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          {user ? (
+            // If 'user' object exists, the user is signed in. Show the main app.
+            <AppNavigator />
+          ) : (
+            // If 'user' is null, the user is not signed in. Show the login screen.
+            <LoginScreen />
+          )}
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

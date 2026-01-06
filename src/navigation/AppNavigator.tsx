@@ -9,7 +9,10 @@ import ManageStockScreen from "../screens/ManageStockScreen";
 import AddProductScreen from "../screens/AddProductScreen";
 import ManageUsersScreen from "../screens/ManageUsersScreen";
 import AdminSettingsScreen from "../screens/AdminSettingsScreen";
-import CategoryScreen from "../screens/CategoryScreen";
+import ProductListScreen from "../screens/ProductListScreen";
+import CartScreen from "../screens/CartScreen";
+import CheckoutScreen from "../screens/CheckoutScreen";
+import PaymentScreen from "../screens/PaymentScreen";
 import { Order } from "../types";
 
 type RootStackParamList = {
@@ -18,10 +21,13 @@ type RootStackParamList = {
   ManageProducts: undefined;
   ManageStock: undefined;
   AddProduct: undefined;
-  ManageCategories: undefined;
   ManageUsers: undefined;
   AdminSettings: undefined;
   Login: undefined;
+  Products: { cart?: any[] };
+  Cart: { cart?: any[] };
+  Checkout: { cartItems?: any[]; subtotal?: number };
+  Payment: any;
 } & ParamListBase;
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -63,14 +69,6 @@ const AppNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="ManageCategories"
-        component={CategoryScreen}
-        options={{
-          headerShown: true,
-          title: "Manage Categories",
-        }}
-      />
-      <Stack.Screen
         name="ManageUsers"
         component={ManageUsersScreen}
         options={{
@@ -84,6 +82,34 @@ const AppNavigator = () => {
         options={{
           headerShown: true,
           title: "Admin Settings",
+        }}
+      />
+      <Stack.Screen
+        name="Products"
+        component={ProductListScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Checkout"
+        component={CheckoutScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={PaymentScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
