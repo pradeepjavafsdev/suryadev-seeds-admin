@@ -11,24 +11,44 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/4ac0059d-ace4-4e98-8004-1533efd71b55"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pradeepjavafsdev.suryadevseedsadmin",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location for delivery tracking.",
+        "NSCameraUsageDescription": "Camera is used for scanning product codes and taking product images.",
+        "NSPhotoLibraryUsageDescription": "Photo library is used to select product images."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.pradeepjavafsdev.suryadevseedsadmin",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
-    "description": "An admin application for managing Suryadev Seeds.",
-    "githubUrl": "https://github.com/yourusername/suryadev-seeds-admin"
+    "description": "An admin application for managing Suryadev Seeds. Manage orders, products, users, and generate invoices with ease.",
+    "githubUrl": "https://github.com/yourusername/suryadev-seeds-admin",
+    "extra": {
+      "eas": {
+        "projectId": "4ac0059d-ace4-4e98-8004-1533efd71b55"
+      }
+    },
+    "owner": "pradeepjavafsdev",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
   }
 }
