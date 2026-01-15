@@ -1,4 +1,3 @@
-// filepath: /suryadev-seeds-admin/suryadev-seeds-admin/src/screens/OrderScreen.tsx
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -15,12 +14,23 @@ import { getDocs, collection, updateDoc, doc } from "firebase/firestore";
 import { firestore } from "../services/firebase";
 import { colors } from "../constants/colors";
 import { Order } from "../types";
+import { useInvoiceActions } from "../hooks/useInvoiceActions";
+
+// Type assertion to suppress false JSX errors from react-native types
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 
 const OrderScreen = ({ navigation }: any) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
+  const { handleInvoiceAction, loading: invoiceLoading } = useInvoiceActions();
 
   useEffect(() => {
     fetchOrders();
@@ -249,6 +259,31 @@ const OrderScreen = ({ navigation }: any) => {
                     "0.00"}
                 </Text>
               </View>
+            </View>
+
+            {/* Download Invoice Section */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>📄 Invoice</Text>
+              <TouchableOpacity
+                style={[
+                  styles.invoiceButton,
+                  invoiceLoading && styles.invoiceButtonDisabled,
+                ]}
+                onPress={() =>
+                  handleInvoiceAction(item, require("../assets/logo.jpg"))
+                }
+                disabled={invoiceLoading}
+              >
+                <Text style={styles.invoiceButtonIcon}>📥</Text>
+                <Text style={styles.invoiceButtonText}>
+                  {invoiceLoading
+                    ? "Generating..."
+                    : "Download / Share Invoice"}
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.invoiceHint}>
+                Click to download or share invoice via native device options
+              </Text>
             </View>
 
             {/* Status Update */}
@@ -541,6 +576,34 @@ const styles = StyleSheet.create({
   emptySubtext: {
     fontSize: 14,
     color: colors.gray,
+  },
+  invoiceButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: colors.primary,
+    marginBottom: 8,
+  },
+  invoiceButtonDisabled: {
+    backgroundColor: "#cccccc",
+    opacity: 0.6,
+  },
+  invoiceButtonIcon: {
+    fontSize: 18,
+    marginRight: 8,
+  },
+  invoiceButtonText: {
+    fontSize: 13,
+    fontWeight: "bold",
+    color: "white",
+  },
+  invoiceHint: {
+    fontSize: 11,
+    color: colors.gray,
+    marginTop: 4,
+    fontStyle: "italic",
   },
 });
 
